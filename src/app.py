@@ -110,6 +110,15 @@ def delete_planet(id):
     db.session.commit()
     return jsonify({"Success": "Deleted planet from favorites"}), 200
 
+@app.route('/favorite/people/<int:id>', methods=['DELETE'])
+def delete_character(id):
+    character = Favorites.query.filter(Favorites.user_id == 1, Favorites.character_id == id).first()
+    if not character:
+        return jsonify({"error": "Character is not in user favorites"}), 404
+    db.session.delete(character)
+    db.session.commit()
+    return jsonify({"Succes": "Deleted character from favorites"}), 200
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
