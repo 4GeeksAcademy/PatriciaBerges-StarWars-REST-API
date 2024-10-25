@@ -22,11 +22,13 @@ class User(db.Model):
             "username": self.username,
         }
     
-    def ser_favorites(self):
+    def user_favorites(self):
         return {
             "id": self.id,
             "email": self.email,
             "username": self.username,
+            "first name": self.firstname,
+            "last name": self.lastname,
             "favorites": self.favorites
         }
 
@@ -36,6 +38,9 @@ class Character(db.Model):
     eye_color = db.Column(db.String(20))
     height_cm = db.Column(db.Integer)
     birth_year = db.Column(db.String(20))
+
+    def __repr__(self):
+        return '<Character %r>' % self.name
 
     def serialize(self):
         return {
@@ -52,6 +57,9 @@ class Planet(db.Model):
     climate = db.Column(db.String(50))
     diameter = db.Column(db.Integer)
     population = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Planet %r>' % self.name
 
     def serialize(self):
         return {
